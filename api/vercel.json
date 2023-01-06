@@ -1,24 +1,23 @@
 {
     "version": 2,
-    "name": "petgram-backend",
+    "alias": [
+        "petgram-api-stri"
+    ],
     "builds": [
         {
-            "use": "@now/static-build",
-            "src": "package.json"
+            "src": "index.js",
+            "use": "@vercel/node"
         }
     ],
     "routes": [
         {
-            "src": "(.*).js",
-            "dest": "/$1.js"
-        },
-        {
-            "src": "(.*).json",
-            "dest": "/$1.json"
-        },
-        {
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+                "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
+            },
             "src": "/.*",
-            "dest": "/index.html"
+            "dest": "index.js"
         }
     ]
 }
