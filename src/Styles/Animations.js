@@ -14,8 +14,18 @@ const fadeInKeyFrames = keyframes`
 `;
 
 const fadeIn = ({ time = "1s", type = "ease" } = {}) =>
-    css`animation: ${time} ${fadeInKeyFrames} ${type};`
+  css`animation: ${time} ${fadeInKeyFrames} ${type};`
 
+
+const moveSpinner = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`
 export {
-    fadeIn
+  fadeIn,
+  moveSpinner
 }
