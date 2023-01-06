@@ -1,13 +1,12 @@
 import React from 'react'
 import { ListCategories } from './components/ListCategories/ListCategories'
-import { GlobalStyle } from './GlobalStyles'
-import db from '../api/db.json'
+import { GlobalStyle } from './Styles/GlobalStyles'
 import { ListPhotoCards } from './components/ListPhotoCards/ListPhotoCards'
-
+import { Logo } from './components/Logo/Logo'
 const App = () => {
     return (
         <>
-            <h1>Petgram</h1>
+            <Logo />
             <ListCategories />
             <ListPhotoCards></ListPhotoCards>
             <GlobalStyle />

@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { AiOutlineHeart } from 'react-icons/ai'
+import { fadeIn } from '../../Styles/Animations';
+
 const DEFAULT_IMAGE = "https://i.imgur.com/dJa0Hpl.jpg";
 
 const CardContainer = styled.a`
@@ -16,6 +18,7 @@ const CardContainer = styled.a`
         border-radius: 20px;
         object-fit: cover;
         width: 100%;
+        ${fadeIn({ time: '1.5s', type: 'ease-in-out' })} 
     }
 
     & > div:last-child{
