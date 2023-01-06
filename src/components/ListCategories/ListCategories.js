@@ -54,6 +54,7 @@ const ListContainer = styled.div`
         right: 0;
         margin: 0 auto;
         border:none;
+        z-index: 2;
     }
     & ul {
         box-shadow: 0 0 20px rgba(0,0,0,0.3);

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { fadeIn } from '../../Styles/Animations';
@@ -41,12 +41,29 @@ const ButtonLike = styled.button`
         color: red;
     }
 `
+
+const Article = styled.article`
+min-height: 200px;
+`
 export const PhotoCard = ({ id, categoryId, src = DEFAULT_IMAGE, userId, likes = 0 }) => {
+    const ref = useRef(null)
+    const [show, setShow] = useState(false);
+
+    useEffect(() => {
+        console.log(ref.current);
+        const observer = new window.IntersectionObserver((entries) => {
+            const { isIntersecting } = entries[0];
+            if (isIntersecting) {
+                setShow(true);
+                observer.disconnect()
+            }
+        })
+        observer.observe(ref.current)
+    }, [ref, show])
     return (
-        <article>
-            <CardContainer href={`/detail/${id}`}>
 
-
+        <Article ref={ref}>
+            {show && <CardContainer href={`/detail/${id}`}>
                 <div>
                     <img src={src} alt='petgram foto' />
                 </div>
@@ -56,7 +73,9 @@ export const PhotoCard = ({ id, categoryId, src = DEFAULT_IMAGE, userId, likes =
                         <AiOutlineHeart size={'32px'} /> <span>{`${likes} ${likes > 1 ? 'likes' : 'like'}`}</span>
                     </ButtonLike>
                 </div>
-            </CardContainer>
-        </article>
+            </CardContainer>}
+
+        </Article>
+
     )
 }
