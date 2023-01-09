@@ -1,8 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { AiOutlineHeart } from 'react-icons/ai'
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { fadeIn } from '../../Styles/Animations';
-
+import { parse } from 'uuid';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { useNearScreen } from '../../hooks/useNearScreen';
 const DEFAULT_IMAGE = "https://i.imgur.com/dJa0Hpl.jpg";
 
 const CardContainer = styled.a`
@@ -46,20 +48,9 @@ const Article = styled.article`
 min-height: 200px;
 `
 export const PhotoCard = ({ id, categoryId, src = DEFAULT_IMAGE, userId, likes = 0 }) => {
-    const ref = useRef(null)
-    const [show, setShow] = useState(false);
+    const { show, ref } = useNearScreen();
+    const { likesp, likePhoto, liked } = useLocalStorage(id, likes);
 
-    useEffect(() => {
-        console.log(ref.current);
-        const observer = new window.IntersectionObserver((entries) => {
-            const { isIntersecting } = entries[0];
-            if (isIntersecting) {
-                setShow(true);
-                observer.disconnect()
-            }
-        })
-        observer.observe(ref.current)
-    }, [ref, show])
     return (
 
         <Article ref={ref}>
@@ -69,8 +60,9 @@ export const PhotoCard = ({ id, categoryId, src = DEFAULT_IMAGE, userId, likes =
                 </div>
                 <div>
                     <i></i>
-                    <ButtonLike>
-                        <AiOutlineHeart size={'32px'} /> <span>{`${likes} ${likes > 1 ? 'likes' : 'like'}`}</span>
+                    <ButtonLike onClick={(evt) => likePhoto(evt)}>
+                        {liked ? <AiFillHeart size={'32px'} color={"red"} /> : <AiOutlineHeart size={'32px'} />}
+                        <span>{`${likesp} ${likesp > 1 ? 'likes' : 'like'}`}</span>
                     </ButtonLike>
                 </div>
             </CardContainer>}
